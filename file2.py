@@ -19,10 +19,51 @@ print(x.grad)
 #Uses Jacobian matrix
 
 #Preventing PyTorch from preventing tracking
+# x.require_grad_(False)
+#x.detach()
+# with torch.no_grad():
 
+#x.requires_grad_(False)
+#print(x)
+#y = x.detach()
+#print(y)
+#with torch.no_grad():
+#y = x+2
+#print(y)
 
+#Example
 
+weights = torch.ones(4, requires_grad=True)
 
+"""for epoch in range(1):
+    model_output = (weights*3).sum()
 
+    model_output.backward()
 
+    print(weights.grad)"""
 
+"""for epoch in range(2):
+    model_output = (weights*3).sum()
+
+    model_output.backward()
+
+    print(weights.grad)"""
+
+for epoch in range(3):
+    model_output = (weights*3).sum()
+
+    model_output.backward()
+
+    print(weights.grad)
+
+    weights.grad.zero_()
+    #Stops from summing up with each iteration
+
+#OR
+
+optimizer = torch.optim.SGD(weights, lr=0.01)
+#PyTorch inbuilt optimizer
+#lr = learning rate
+
+optimizer.step()
+optimizer.zero_grad()
